@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+<nav class="navbar navbar-light shadow-sm px-4 py-3 custom-nav">
+    <a class="navbar-brand fw-bold fs-4 text-white">My Contacts</a>
+    <!-- when i click then go ti show_contact page  -->
+    <div class="d-flex">
+        <a href="{% url 'home' %}" class="btn btn-light shadow-sm see-all-btn me-2">
+            Home
+        </a>
+        <a href="{% url 'show_contact' %}" class="btn btn-light shadow-sm see-all-btn me-2">
+            See All
+        </a>
+        <a href="{% url 'logout' %}" class="btn btn-light shadow-sm see-all-btn">
+            Logout
+        </a>
+    </div>
+
+</nav>
+{% endblock %}

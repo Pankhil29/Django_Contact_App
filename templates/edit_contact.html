@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+
+
+<!-- Custom CSS  -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+
+{% include './navbar.html' %}
+<div class="container mt-5 p-4 shadow-sm rounded edit-contact-form">
+    <!-- get_contact.pk url mathi le che action define kare che ke kya moklvu form  -->
+    <form action="{% url 'edit_contact' get_contact.pk %}" method="POST">
+        {% csrf_token %}
+        <div class="floating-group mb-4">
+            <input name="name" type="text" class="form-control floating-input" placeholder=" "
+                value="{{get_contact.name}}" required>
+            <label class="floating-label">Name</label>
+        </div>
+
+        <div class="floating-group mb-4">
+            <input name="email" type="email" class="form-control floating-input" placeholder=" "
+                value="{{get_contact.email}}" required>
+            <label class="floating-label">Email</label>
+        </div>
+        <div class="floating-group mb-4">
+            <input name="phone" type="text" class="form-control floating-input" placeholder=" "
+                value="{{get_contact.phone}}" required>
+            <label class="floating-label">Contact Number</label>
+        </div>
+        <div class="floating-group mb-4">
+            <input name="address" type="text" class="form-control floating-input" placeholder=" "
+                value="{{get_contact.address}}" required>
+            <label class="floating-label">Address</label>
+        </div>
+
+        <button type="submit" class="btn add-btn w-100 mt-3"><i class="fa fa-plus"></i> Update Contact </button>
+    </form>
+</div>
+{% endblock %}

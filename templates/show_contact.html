@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .contact-card {
+        min-height: 180px;
+        border-radius: 10px;
+    }
+</style>
+
+
+<body class="bg-light ">
+    {% include './navbar.html' %}
+
+    <div class="container mt-4">
+
+
+        <div class="row">
+            {% for data in data %}
+            <div class="col-md-3 mb-4 d-flex">
+                <div class="card shadow-sm contact-card p-2 h-100 w-100">
+                    <div class="card-body">
+                        <p><strong>Name:</strong> {{ data.name }}</p>
+                        <p><strong>Phone:</strong> {{ data.phone }}</p>
+                        <p><strong>Email:</strong> {{ data.email }}</p>
+                        <p><strong>Address:</strong> {{ data.address }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 d-flex justify-content-between">
+                        <a href="{% url 'edit_contact' data.id %}" class="btn btn-sm btn-success"><i
+                                class="fa fa-pencil"></i>
+                            Edit</a>
+                        <!-- data.id loop mathi ave che  -->
+                        <a href="{% url 'delete_contact' data.id %}" class="btn btn-sm btn-danger"><i
+                                class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+    </div>
+</body>
+
+{% endblock %}

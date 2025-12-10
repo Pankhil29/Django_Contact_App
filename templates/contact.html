@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+{% include './navbar.html' %}
+
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="contact-card p-4 rounded">
+
+        <h2 class="text-center mb-4 fw-bold text-dark">Add Contact</h2>
+
+        <form action="{% url 'add_contact' %}" method="POST">
+            {% csrf_token %}
+            <div class="floating-group mb-4">
+                <input name="name" type="text" class="form-control floating-input" placeholder=" "
+                    value="{{get_contact.name | default:'' }}" required>
+                <label class="floating-label">Name</label>
+            </div>
+
+            <div class="floating-group mb-4">
+                <input name="email" type="email" class="form-control floating-input" placeholder=" " required>
+                <label class="floating-label">Email</label>
+            </div>
+            <div class="floating-group mb-4">
+                <input name="phone" type="text" class="form-control floating-input" placeholder=" " required>
+                <label class="floating-label">Contact Number</label>
+            </div>
+            <div class="floating-group mb-4">
+                <input name="address" type="text" class="form-control floating-input" placeholder=" " required>
+                <label class="floating-label">Address</label>
+            </div>
+
+            <button type="submit" class="btn add-btn w-100 mt-3"><i class="fa fa-plus"></i> Add Contact</button>
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}
