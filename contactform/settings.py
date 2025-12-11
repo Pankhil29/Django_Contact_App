@@ -83,9 +83,11 @@ WSGI_APPLICATION = 'contactform.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
+        default="postgresql://contactuser:AQvxq9mEyJCgjwUIHl8SwTfaRS1HTNqx@dpg-d4t4c1k9c44c73bfh7k0-a.virginia-postgres.render.com/contactdb_con9",
+        conn_max_age=600,
     )
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
