@@ -3,6 +3,9 @@ from .models import Contact
 from login.models import Registration
 from django.views.decorators.cache import never_cache
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.shortcuts import render
+
 # Create your views here.
 
 def home(req):
@@ -45,10 +48,15 @@ def show_contact(req):
     
     user = Registration.objects.get(id =user_id)
     contacts = Contact.objects.filter(user=user)
-    # query = req.GET.get('search')
+    # print(contacts)    
+    paginator = Paginator(contacts, 3)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    print("sfdfdsf",page_obj)
+    # print(paginator)
     context = {
         
-        "data" : contacts
+        "data" : page_obj
     }
     return render(req, 'show_contact.html',context)
 

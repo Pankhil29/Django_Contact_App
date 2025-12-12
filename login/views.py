@@ -3,9 +3,9 @@ from django.contrib import messages
 from .models import Registration
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.views.decorators.cache import never_cache
 
-
-
+@never_cache
 def user_login(request):
     if 'user_id' in request.session:
         return redirect("show_contact") 
@@ -46,7 +46,7 @@ def user_login(request):
     return render(request, "login.html")
 
 
-
+@never_cache
 def signup(request):
     if request.method == "POST":
         username = request.POST.get("username")
