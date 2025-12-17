@@ -5,6 +5,7 @@ from django.views.decorators.cache import never_cache
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.db.models import Q
 
 # Create your views here.
 
@@ -47,18 +48,38 @@ def show_contact(req):
         return redirect('login')
     
     user = Registration.objects.get(id =user_id)
-    contacts = Contact.objects.filter(user=user)
-    # print(contacts)    
-    paginator = Paginator(contacts, 3)
-    page_number = req.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    print("sfdfdsf",page_obj)
-    # print(paginator)
-    context = {
-        
-        "data" : page_obj
+
+    keyword = req.GET.get('keyword') 
+    # print(keyword)
+    if keyword:
+        contacts = Contact.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(email__icontains=keyword) | Q(address__icontains=keyword))
+        paginator = Paginator(contacts, 3)
+        page_number = req.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        # print("sfdfdsf",page_obj)
+        # print(paginator)
+        context = {
+        "keyword": keyword,
+        "data" : page_obj,
     }
-    return render(req, 'show_contact.html',context)
+    
+        return render(req, 'show_contact.html',context)
+    else:
+        contacts = Contact.objects.filter(user=user)
+        paginator = Paginator(contacts, 3)
+        page_number = req.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        #    print("sfdfdsf",page_obj)
+        # print(paginator)
+        context = {
+        "keyword": keyword,
+        "data" : page_obj,
+    }
+    
+        return render(req, 'show_contact.html',context)
+        
+      
+    
 
 @never_cache
 def edit_contact(req,pk):
@@ -95,3 +116,15 @@ def delete_contact(req,pk):
     get_contact = get_object_or_404(Contact,pk=pk,user_id=user_id)
     get_contact.delete()
     return redirect('show_contact')
+
+
+# def search(req):
+    
+#     keyword = req.GET.get('keyword')
+#     print(keyword)
+#     contact = Contact.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(email__icontains=keyword) | Q(address__icontains=keyword))
+#     print(contact)
+#     context = {
+#         'contact': contact,
+#     }
+#     return render(req,'show_contact',context)

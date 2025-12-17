@@ -9,11 +9,12 @@
     .pagination .page-link {
         border-radius: 30px !important;
         padding: 6px 14px;
+        margin: 0 4px
     }
 
     .pagination .page-item.active .page-link {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
+        background-color: black;
+        border-color: black;
         color: white;
     }
 </style>
@@ -21,8 +22,17 @@
 
 <body class="bg-light ">
     {% include './navbar.html' %}
-
     <div class="container mt-4">
+        <div class="col-4 my-3">
+            <form action="" method="get">
+                <div class="input-group">
+                    <input class="form-control" value="{% if keyword %} {{ keyword }} {% endif %} " type="text"
+                        placeholder="Enter search term..." aria-label="Enter search term..." name="keyword"
+                        aria-describedby="button-search" />
+                    <button class="btn btn-warning mx-2" id="button-search" type="submit">Go!</button>
+                </div>
+            </form>
+        </div>
 
 
         <div class="row">
@@ -57,7 +67,8 @@
                     <a class="page-link" href="?page=1">First</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ data.previous_page_number }}">Previous</a>
+                    <a class="page-link" href="?page={{ data.previous_page_number }}">
+                        << </a>
                 </li>
                 {% endif %}
 
@@ -75,7 +86,9 @@
 
                 {% if data.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ data.next_page_number }}">Next</a>
+                    <a class="page-link" href="?page={{ data.next_page_number }}">
+                        >>
+                    </a>
                 </li>
                 <li class="page-item">
                     <a class="page-link" href="?page={{ data.paginator.num_pages }}">Last</a>
