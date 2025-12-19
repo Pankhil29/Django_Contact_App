@@ -47,36 +47,25 @@ def show_contact(req):
     if not user_id:
         return redirect('login')
     
-    user = Registration.objects.get(id =user_id)
-
-    keyword = req.GET.get('keyword') 
+    user = Registration.objects.get(id=user_id)
+    contacts = Contact.objects.filter(user=user)
+    keyword = req.GET.get('keyword','') 
     # print(keyword)
     if keyword:
-        contacts = Contact.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(email__icontains=keyword) | Q(address__icontains=keyword))
-        paginator = Paginator(contacts, 3)
-        page_number = req.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        # print("sfdfdsf",page_obj)
-        # print(paginator)
-        context = {
-        "keyword": keyword,
-        "data" : page_obj,
-    }
-    
-        return render(req, 'show_contact.html',context)
-    else:
-        contacts = Contact.objects.filter(user=user)
-        paginator = Paginator(contacts, 3)
-        page_number = req.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        contacts = contacts.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(email__icontains=keyword) | Q(address__icontains=keyword))
+        
+        
+    paginator = Paginator(contacts, 3)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
         #    print("sfdfdsf",page_obj)
         # print(paginator)
-        context = {
+    context = {
         "keyword": keyword,
         "data" : page_obj,
     }
     
-        return render(req, 'show_contact.html',context)
+    return render(req, 'show_contact.html',context)
         
       
     

@@ -20,20 +20,20 @@
 </style>
 
 
-<body class="bg-light ">
+<body class="bg-light h-100 ">
     {% include './navbar.html' %}
-    <div class="container mt-4">
+    {% if data %}
+    <div class="container mt-4 h-100">
         <div class="col-4 my-3">
             <form action="" method="get">
                 <div class="input-group">
-                    <input class="form-control" value="{% if keyword %} {{ keyword }} {% endif %} " type="text"
-                        placeholder="Enter search term..." aria-label="Enter search term..." name="keyword"
-                        aria-describedby="button-search" />
+                    <input class="form-control" value="{{ keyword }}" type="text" placeholder="Enter search term..."
+                        aria-label="Enter search term..." name="keyword" aria-describedby="button-search" />
                     <button class="btn btn-warning mx-2" id="button-search" type="submit">Go!</button>
                 </div>
             </form>
         </div>
-
+        {% endif %}
 
         <div class="row">
             {% for data in data %}
@@ -58,7 +58,7 @@
             {% endfor %}
         </div>
 
-
+        {% if data %}
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
 
@@ -97,6 +97,11 @@
 
             </ul>
         </nav>
+        {% endif %}
+
+        {% if not data %}
+        <h2 class="text-center m-10 ">No Contacts</h2>
+        {% endif %}
 
     </div>
 </body>

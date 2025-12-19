@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,12 +34,16 @@
             left: 0;
             margin-left: 1px;
         }
+
+        .main_content {
+            height: 100% !important;
+        }
     </style>
 </head>
 
-<body>
+<body class="h-auto">
 
-    <div class="toast-container">
+    <div class="toast-container h-100">
         {% if messages %}
         {% for message in messages %}
         <div class="toast align-items-center text-white 
@@ -64,7 +68,7 @@
 
 
     <!-- ✅ PAGE CONTENT HERE -->
-    <div class="">
+    <div class="main_content">
         {% block content %}
 
         {% endblock %}
