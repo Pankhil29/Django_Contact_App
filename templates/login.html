@@ -1,57 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login_signup.css' %}">
+{% endblock %}
+
 {% block content %}
-
-
-<style>
-    body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #71b7e6, #9b59b6);
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .card {
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        width: 100%;
-        max-width: 400px;
-        padding: 30px;
-        background-color: #fff;
-    }
-
-    .form-control:focus {
-        border-color: #9b59b6;
-        box-shadow: 0 0 0 0.2rem rgba(155, 89, 182, 0.25);
-    }
-
-    .form-label {
-        font-weight: 500;
-    }
-
-    .btn-primary {
-        background: linear-gradient(45deg, #9b59b6, #71b7e6);
-        border: none;
-    }
-
-    .btn-primary:hover {
-        background: linear-gradient(45deg, #71b7e6, #9b59b6);
-    }
-
-    .form-switch-link {
-        font-size: 0.9rem;
-        color: #9b59b6;
-        cursor: pointer;
-    }
-
-    .form-switch-link:hover {
-        text-decoration: underline;
-    }
-</style>
-
-<div class="card">
-
+<div class="cards">
     <div id="login-form">
         <h3 class="text-center mb-4">Login</h3>
         <form method="POST" action="{% url 'login' %}" enctype="multipart/form-data">
